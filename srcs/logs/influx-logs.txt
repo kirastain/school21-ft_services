@@ -1,0 +1,63 @@
+Sending build context to Docker daemon  3.072kB
+Step 1/9 : FROM alpine:latest
+ ---> 389fef711851
+Step 2/9 : EXPOSE 8086
+ ---> Running in 810db425e247
+Removing intermediate container 810db425e247
+ ---> 81ba058d77dd
+Step 3/9 : RUN apk update
+ ---> Running in a05878bb7681
+fetch http://dl-cdn.alpinelinux.org/alpine/v3.12/main/x86_64/APKINDEX.tar.gz
+fetch http://dl-cdn.alpinelinux.org/alpine/v3.12/community/x86_64/APKINDEX.tar.gz
+v3.12.3-47-g3428e040de [http://dl-cdn.alpinelinux.org/alpine/v3.12/main]
+v3.12.3-48-gea3fd89439 [http://dl-cdn.alpinelinux.org/alpine/v3.12/community]
+OK: 12746 distinct packages available
+Removing intermediate container a05878bb7681
+ ---> 992f519bdccc
+Step 4/9 : RUN apk add openrc
+ ---> Running in 109e42c24562
+(1/1) Installing openrc (0.42.1-r11)
+Executing openrc-0.42.1-r11.post-install
+Executing busybox-1.31.1-r19.trigger
+OK: 8 MiB in 15 packages
+Removing intermediate container 109e42c24562
+ ---> cbe04a4212d7
+Step 5/9 : RUN apk add influxdb
+ ---> Running in 06035a25c0a7
+(1/2) Installing influxdb (1.8.0-r1)
+Executing influxdb-1.8.0-r1.pre-install
+(2/2) Installing influxdb-openrc (1.8.0-r1)
+Executing busybox-1.31.1-r19.trigger
+OK: 271 MiB in 17 packages
+Removing intermediate container 06035a25c0a7
+ ---> b89c0de2215c
+Step 6/9 : RUN apk add --no-cache --upgrade bash
+ ---> Running in 7751242e6ab8
+fetch http://dl-cdn.alpinelinux.org/alpine/v3.12/main/x86_64/APKINDEX.tar.gz
+fetch http://dl-cdn.alpinelinux.org/alpine/v3.12/community/x86_64/APKINDEX.tar.gz
+(1/4) Installing ncurses-terminfo-base (6.2_p20200523-r0)
+(2/4) Installing ncurses-libs (6.2_p20200523-r0)
+(3/4) Installing readline (8.0.4-r0)
+(4/4) Installing bash (5.0.17-r0)
+Executing bash-5.0.17-r0.post-install
+Executing busybox-1.31.1-r19.trigger
+OK: 273 MiB in 21 packages
+Removing intermediate container 7751242e6ab8
+ ---> 73e28e2d9fb1
+Step 7/9 : COPY setup.sh /setup.sh
+ ---> 1961e0c41ad1
+Step 8/9 : RUN chmod +x /setup.sh
+ ---> Running in 6c607e351369
+Removing intermediate container 6c607e351369
+ ---> 1cf9048440c2
+Step 9/9 : CMD ./setup.sh
+ ---> Running in e4d71d1db154
+Removing intermediate container e4d71d1db154
+ ---> 1f961e4c438b
+Successfully built 1f961e4c438b
+Successfully tagged influxdb:latest
+service/influxdb created
+deployment.apps/influxdb created
+persistentvolume/influxdb-data created
+persistentvolumeclaim/influxdb-data-disk created
+configmap/influxdb created

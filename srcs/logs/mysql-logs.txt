@@ -1,0 +1,72 @@
+Sending build context to Docker daemon  49.66kB
+Step 1/12 : FROM alpine:latest
+ ---> 389fef711851
+Step 2/12 : EXPOSE 3306
+ ---> Running in bfff34a23281
+Removing intermediate container bfff34a23281
+ ---> b8c0591dd9c7
+Step 3/12 : RUN apk update
+ ---> Running in 40c7d1c5e053
+fetch http://dl-cdn.alpinelinux.org/alpine/v3.12/main/x86_64/APKINDEX.tar.gz
+fetch http://dl-cdn.alpinelinux.org/alpine/v3.12/community/x86_64/APKINDEX.tar.gz
+v3.12.3-47-g3428e040de [http://dl-cdn.alpinelinux.org/alpine/v3.12/main]
+v3.12.3-48-gea3fd89439 [http://dl-cdn.alpinelinux.org/alpine/v3.12/community]
+OK: 12746 distinct packages available
+Removing intermediate container 40c7d1c5e053
+ ---> abc569d30adf
+Step 4/12 : RUN apk add openrc
+ ---> Running in 6f105e8f3fc0
+(1/1) Installing openrc (0.42.1-r11)
+Executing openrc-0.42.1-r11.post-install
+Executing busybox-1.31.1-r19.trigger
+OK: 8 MiB in 15 packages
+Removing intermediate container 6f105e8f3fc0
+ ---> 45a44a4ffd2e
+Step 5/12 : RUN apk add mysql mysql-client
+ ---> Running in a227a9a567a6
+(1/15) Installing mariadb-common (10.4.15-r0)
+(2/15) Installing libaio (0.3.112-r1)
+(3/15) Installing xz-libs (5.2.5-r0)
+(4/15) Installing ncurses-terminfo-base (6.2_p20200523-r0)
+(5/15) Installing ncurses-libs (6.2_p20200523-r0)
+(6/15) Installing linux-pam (1.3.1-r4)
+(7/15) Installing pcre (8.44-r0)
+(8/15) Installing libgcc (9.3.0-r2)
+(9/15) Installing libstdc++ (9.3.0-r2)
+(10/15) Installing libxml2 (2.9.10-r5)
+(11/15) Installing mariadb (10.4.15-r0)
+Executing mariadb-10.4.15-r0.pre-install
+(12/15) Installing mysql (10.4.15-r0)
+(13/15) Installing mariadb-client (10.4.15-r0)
+(14/15) Installing mysql-client (10.4.15-r0)
+(15/15) Installing mariadb-openrc (10.4.15-r0)
+Executing busybox-1.31.1-r19.trigger
+OK: 168 MiB in 30 packages
+Removing intermediate container a227a9a567a6
+ ---> 6a7be3870794
+Step 6/12 : RUN mkdir -p /run/mysqld && chown -R mysql /run/mysqld
+ ---> Running in 96820d8dd5c9
+Removing intermediate container 96820d8dd5c9
+ ---> 1bb0c2642208
+Step 7/12 : COPY mariadb-server.cnf /etc/my.cnf.d/mariadb-server.cnf
+ ---> c17d3d427d44
+Step 8/12 : COPY ./setup.sh .
+ ---> 9e2b7135bbc7
+Step 9/12 : RUN chmod +x setup.sh
+ ---> Running in 40229c4824cc
+Removing intermediate container 40229c4824cc
+ ---> f919dccb7eb5
+Step 10/12 : COPY ./wordpress.sql .
+ ---> 6689502599af
+Step 11/12 : COPY ./maindb.sql .
+ ---> 36899b4f290f
+Step 12/12 : CMD ./setup.sh
+ ---> Running in a8d7aaa0ef81
+Removing intermediate container a8d7aaa0ef81
+ ---> 37278256a0fd
+Successfully built 37278256a0fd
+Successfully tagged mysql:latest
+service/mysql created
+persistentvolume/mysql-data created
+persistentvolumeclaim/mysql-data-disk created
+deployment.apps/mysql created

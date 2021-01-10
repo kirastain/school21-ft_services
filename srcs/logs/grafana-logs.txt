@@ -1,0 +1,76 @@
+Sending build context to Docker daemon  71.17kB
+Step 1/14 : FROM alpine:latest
+ ---> 389fef711851
+Step 2/14 : EXPOSE 3000
+ ---> Running in f7e2fb09c22b
+Removing intermediate container f7e2fb09c22b
+ ---> 4dcb21d1d97b
+Step 3/14 : RUN apk update
+ ---> Running in 260f2b477e22
+fetch http://dl-cdn.alpinelinux.org/alpine/v3.12/main/x86_64/APKINDEX.tar.gz
+fetch http://dl-cdn.alpinelinux.org/alpine/v3.12/community/x86_64/APKINDEX.tar.gz
+v3.12.3-47-g3428e040de [http://dl-cdn.alpinelinux.org/alpine/v3.12/main]
+v3.12.3-48-gea3fd89439 [http://dl-cdn.alpinelinux.org/alpine/v3.12/community]
+OK: 12746 distinct packages available
+Removing intermediate container 260f2b477e22
+ ---> 66bfbad6e969
+Step 4/14 : RUN apk add openrc
+ ---> Running in e22a78eb9672
+(1/1) Installing openrc (0.42.1-r11)
+Executing openrc-0.42.1-r11.post-install
+Executing busybox-1.31.1-r19.trigger
+OK: 8 MiB in 15 packages
+Removing intermediate container e22a78eb9672
+ ---> dff64eaad91e
+Step 5/14 : RUN apk add grafana --repository http://dl-cdn.alpinelinux.org/alpine/edge/community/ --allow-untrusted --no-cache
+ ---> Running in 7c7b3b9994d8
+fetch http://dl-cdn.alpinelinux.org/alpine/edge/community/x86_64/APKINDEX.tar.gz
+fetch http://dl-cdn.alpinelinux.org/alpine/v3.12/main/x86_64/APKINDEX.tar.gz
+fetch http://dl-cdn.alpinelinux.org/alpine/v3.12/community/x86_64/APKINDEX.tar.gz
+(1/2) Installing grafana (7.3.6-r0)
+Executing grafana-7.3.6-r0.pre-install
+(2/2) Installing grafana-openrc (7.3.6-r0)
+Executing busybox-1.31.1-r19.trigger
+OK: 173 MiB in 17 packages
+Removing intermediate container 7c7b3b9994d8
+ ---> 89f6d7735efc
+Step 6/14 : RUN wget https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.28-r0/glibc-2.28-r0.apk
+ ---> Running in b014bd0266b9
+[91mConnecting to github.com (140.82.121.3:443)
+[0m[91mConnecting to github-production-release-asset-2e65be.s3.amazonaws.com (52.217.65.36:443)
+[0m[91msaving to 'glibc-2.28-r0.apk'
+[0m[91mglibc-2.28-r0.apk     53% |*****************               | 1189k  0:00:00 ETA
+[0m[91mglibc-2.28-r0.apk    100% |********************************| 2219k[0m[91m  0:00:00 ETA[0m[91m
+[0m[91m'glibc-2.28-r0.apk' saved
+[0mRemoving intermediate container b014bd0266b9
+ ---> 5f69679fda47
+Step 7/14 : RUN apk add glibc-2.28-r0.apk --allow-untrusted --no-cache
+ ---> Running in fcb3a020792d
+fetch http://dl-cdn.alpinelinux.org/alpine/v3.12/main/x86_64/APKINDEX.tar.gz
+fetch http://dl-cdn.alpinelinux.org/alpine/v3.12/community/x86_64/APKINDEX.tar.gz
+(1/1) Installing glibc (2.28-r0)
+OK: 177 MiB in 18 packages
+Removing intermediate container fcb3a020792d
+ ---> 2d042dbe326f
+Step 8/14 : COPY ./datasources.yaml /usr/share/grafana/conf/provisioning/datasources/influxdb.yaml
+ ---> 244817c365ed
+Step 9/14 : COPY ./dashboards.yaml /usr/share/grafana/conf/provisioning/dashboards/influxdb.yaml
+ ---> 9d860062b5ca
+Step 10/14 : COPY dashboards /var/lib/dashboards/
+ ---> c24c06a20574
+Step 11/14 : COPY ./grafana.ini /usr/share/grafana/conf/custom.ini
+ ---> 391dfe1addfd
+Step 12/14 : COPY ./setup.sh .
+ ---> ac5271196659
+Step 13/14 : RUN chmod +x setup.sh
+ ---> Running in d2b5d4861a44
+Removing intermediate container d2b5d4861a44
+ ---> d4be11418d7d
+Step 14/14 : CMD ./setup.sh
+ ---> Running in ff19ef3f7ce0
+Removing intermediate container ff19ef3f7ce0
+ ---> bab1a1e78f42
+Successfully built bab1a1e78f42
+Successfully tagged grafana:latest
+service/grafana created
+deployment.apps/grafana created

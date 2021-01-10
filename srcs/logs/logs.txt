@@ -1,0 +1,47 @@
+😄  minikube v1.16.0 on Ubuntu 18.04
+✨  Using the virtualbox driver based on user configuration
+👍  Starting control plane node minikube in cluster minikube
+🔥  Creating virtualbox VM (CPUs=2, Memory=3000MB, Disk=20000MB) ...
+🐳  Preparing Kubernetes v1.20.0 on Docker 20.10.0 ...| WW[K[K/ WW[K[K- WW[K[K\ WW[K[K
+    ▪ apiserver.service-node-port-range=1-35000
+    ▪ Generating certificates and keys ...| WW[K[K/ WW[K[K- WW[K[K\ WW[K[K| WW[K[K/ WW[K[K- WW[K[K\ WW[K[K| WW[K[K/ WW[K[K- WW[K[K\ WW[K[K| WW[K[K/ WW[K[K- WW[K[K\ WW[K[K| WW[K[K/ WW[K[K- WW[K[K\ WW[K[K| WW[K[K/ WW[K[K
+    ▪ Booting up control plane ...
+    ▪ Configuring RBAC rules ...
+🔎  Verifying Kubernetes components...
+🌟  Enabled addons: storage-provisioner, default-storageclass
+🏄  Done! kubectl is now configured to use "minikube" cluster and "default" namespace by default
+🌟  The 'metallb' addon is enabled
+namespace/metallb-system unchanged
+podsecuritypolicy.policy/speaker unchanged
+serviceaccount/controller unchanged
+serviceaccount/speaker unchanged
+clusterrole.rbac.authorization.k8s.io/metallb-system:controller unchanged
+clusterrole.rbac.authorization.k8s.io/metallb-system:speaker unchanged
+role.rbac.authorization.k8s.io/config-watcher unchanged
+clusterrolebinding.rbac.authorization.k8s.io/metallb-system:controller unchanged
+clusterrolebinding.rbac.authorization.k8s.io/metallb-system:speaker unchanged
+rolebinding.rbac.authorization.k8s.io/config-watcher unchanged
+daemonset.apps/speaker configured
+deployment.apps/controller configured
+podsecuritypolicy.policy/controller created
+podsecuritypolicy.policy/speaker configured
+serviceaccount/controller unchanged
+serviceaccount/speaker unchanged
+clusterrole.rbac.authorization.k8s.io/metallb-system:controller configured
+clusterrole.rbac.authorization.k8s.io/metallb-system:speaker configured
+role.rbac.authorization.k8s.io/config-watcher unchanged
+role.rbac.authorization.k8s.io/pod-lister created
+clusterrolebinding.rbac.authorization.k8s.io/metallb-system:controller unchanged
+clusterrolebinding.rbac.authorization.k8s.io/metallb-system:speaker unchanged
+rolebinding.rbac.authorization.k8s.io/config-watcher unchanged
+rolebinding.rbac.authorization.k8s.io/pod-lister created
+daemonset.apps/speaker configured
+deployment.apps/controller configured
+secret/memberlist created
+configmap/config configured
+💡  Some dashboard features require the metrics-server addon. To enable all features please run:
+
+	minikube addons enable metrics-server	
+
+
+🌟  The 'dashboard' addon is enabled
